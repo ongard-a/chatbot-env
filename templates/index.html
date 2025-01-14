@@ -1,45 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Azure OpenAI Chat</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> 
 </head>
 <body>
-    <h1>Chat with AI</h1>
-    <form method="POST" action="/generate">
-        <textarea name="prompt" rows="5" cols="50" placeholder="Enter your prompt here"></textarea><br><br>
-        <button type="submit">Send</button>
-    </form>
-    <div id="response"></div>
+    <div class="container">
+        <h1>Chat with AI</h1>
+        <div class="chat-box">
+            <div class="chat-messages">
+                </div>
+            </div>
+            <div class="input-area">
+                <textarea id="prompt" rows="3" placeholder="Enter your prompt here"></textarea>
+                <button id="send-btn">Send</button>
+            </div>
+        </div>
+    </div>
 
-    <script>
-        function handleResponse(data) {
-            const responseDiv = document.getElementById('response');
-            responseDiv.innerHTML = `<p><b>AI Response:</b> ${data.response}</p>`;
-        }
-
-        function handleError(data) {
-            const responseDiv = document.getElementById('response');
-            responseDiv.innerHTML = `<p><b>Error:</b> ${data.error}</p>`;
-        }
-
-        const form = document.querySelector('form');
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault();
-
-            const formData = new FormData(form);
-            const response = await fetch('/generate', {
-                method: 'POST',
-                body: formData
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                handleResponse(data);
-            } else {
-                handleError(data);
-            }
-        });
-    </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
